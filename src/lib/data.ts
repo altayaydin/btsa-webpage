@@ -34,11 +34,27 @@ export const dorms: { name: string; area: string; price: string; walk: T; note: 
   { name: "Bocconi Bligny", area: "Viale Bligny", price: "€800–950", walk: { tr: "Kampüse 7 dk", en: "7 min to campus" }, note: { tr: "Merkezi konum, yeni tadilatlı.", en: "Central, recently renovated." } },
 ];
 
-export const places: { name: string; cat: T; price: string; tip: T }[] = [
-  { name: "Panificio Davide Longoni", cat: { tr: "Fırın", en: "Bakery" }, price: "€", tip: { tr: "Sabah dersinden önce focaccia.", en: "Focaccia before morning class." } },
-  { name: "Pizzeria Spontini", cat: { tr: "Pizza", en: "Pizza" }, price: "€", tip: { tr: "Kalın dilim, hızlı ve doyurucu.", en: "Thick slice, fast and filling." } },
-  { name: "Erbil Kebab", cat: { tr: "Türk mutfağı", en: "Turkish food" }, price: "€", tip: { tr: "Memleket özlemi çekince.", en: "When you miss home." } },
-  { name: "Bar Bocconi", cat: { tr: "Kafe", en: "Café" }, price: "€", tip: { tr: "1 €'luk espresso, ders arası klasik.", en: "€1 espresso, a classic between lectures." } },
-  { name: "Trattoria Masuelli", cat: { tr: "Trattoria", en: "Trattoria" }, price: "€€", tip: { tr: "Aileniz ziyarete gelince.", en: "When family visits." } },
-  { name: "Darsena", cat: { tr: "Aperitivo", en: "Aperitivo" }, price: "€€", tip: { tr: "Gün batımında Navigli kanalı.", en: "Navigli canal at sunset." } },
+export type PlaceCat = "food" | "cafe" | "turkish" | "night" | "study";
+export const placeCats: Record<PlaceCat, { tr: string; en: string; emoji: string }> = {
+  food: { tr: "Yemek", en: "Food", emoji: "🍕" },
+  cafe: { tr: "Kafe & Fırın", en: "Café & Bakery", emoji: "☕" },
+  turkish: { tr: "Türk mutfağı", en: "Turkish food", emoji: "🥙" },
+  night: { tr: "Aperitivo & Gece", en: "Aperitivo & Night", emoji: "🍹" },
+  study: { tr: "Çalışma", en: "Study", emoji: "📚" },
+};
+
+export const BOCCONI = { lng: 9.1897, lat: 45.4505 };
+
+// Sample places — approximate locations, replace with your own picks
+export const places: { name: string; cat: PlaceCat; price: string; lng: number; lat: number; tip: T }[] = [
+  { name: "Bar Bocconi", cat: "cafe", price: "€", lng: 9.1893, lat: 45.4511, tip: { tr: "1 €'luk espresso, ders arası klasik.", en: "€1 espresso, a classic between lectures." } },
+  { name: "Panificio Davide Longoni", cat: "cafe", price: "€", lng: 9.1858, lat: 45.4522, tip: { tr: "Sabah dersinden önce focaccia.", en: "Focaccia before morning class." } },
+  { name: "Pizzeria Spontini", cat: "food", price: "€", lng: 9.1935, lat: 45.4548, tip: { tr: "Kalın dilim, hızlı ve doyurucu.", en: "Thick slice, fast and filling." } },
+  { name: "Trattoria Masuelli", cat: "food", price: "€€", lng: 9.2118, lat: 45.4553, tip: { tr: "Aileniz ziyarete gelince.", en: "When family visits." } },
+  { name: "Erbil Kebab", cat: "turkish", price: "€", lng: 9.1938, lat: 45.4478, tip: { tr: "Memleket özlemi çekince.", en: "When you miss home." } },
+  { name: "Baklava Shop", cat: "turkish", price: "€", lng: 9.1822, lat: 45.4575, tip: { tr: "Sınav sonrası ödül.", en: "Post-exam reward." } },
+  { name: "Darsena", cat: "night", price: "€€", lng: 9.1772, lat: 45.4532, tip: { tr: "Gün batımında Navigli kanalı.", en: "Navigli canal at sunset." } },
+  { name: "Fondazione Prada Bar Luce", cat: "night", price: "€€", lng: 9.2045, lat: 45.4448, tip: { tr: "Wes Anderson tasarımı kafe.", en: "Café designed by Wes Anderson." } },
+  { name: "Biblioteca Bocconi", cat: "study", price: "—", lng: 9.1903, lat: 45.4498, tip: { tr: "Sınav haftası erken git.", en: "Go early during exam week." } },
+  { name: "Biblioteca Sormani", cat: "study", price: "—", lng: 9.1972, lat: 45.4605, tip: { tr: "Tarihi, sessiz, ücretsiz.", en: "Historic, quiet and free." } },
 ];

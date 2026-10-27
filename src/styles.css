@@ -82,3 +82,21 @@
 @utility hero-overlay {
   background: linear-gradient(180deg, color-mix(in oklab, var(--primary) 30%, transparent), color-mix(in oklab, var(--primary) 92%, transparent));
 }
+
+/* Map markers */
+.map-pin {
+  width: 38px; height: 38px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg);
+  background: var(--primary); border: 2px solid var(--gold);
+  display: grid; place-items: center; cursor: pointer;
+  box-shadow: 0 6px 14px -4px color-mix(in oklab, var(--primary) 60%, transparent);
+  transition: transform .15s, background .15s;
+}
+.map-pin span { transform: rotate(45deg); font-size: 16px; }
+.map-pin:hover { transform: rotate(-45deg) scale(1.12); }
+.map-pin.is-active { background: var(--gold); border-color: var(--primary); transform: rotate(-45deg) scale(1.25); z-index: 5; }
+.map-pin-home {
+  width: 46px; height: 46px; border-radius: 9999px; background: var(--gold); color: var(--primary);
+  border: 3px solid var(--primary); display: grid; place-items: center;
+  font-family: var(--font-display); font-size: 22px;
+  box-shadow: 0 0 0 8px color-mix(in oklab, var(--gold) 30%, transparent);
+}

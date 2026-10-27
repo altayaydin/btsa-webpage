@@ -8,21 +8,20 @@ const sub101 = [
   { to: "/bocconi-101/places", tr: "Mekanlar", en: "Places" },
 ] as const;
 
-const nav = [
-  { to: "/", tr: "Etkinlikler", en: "Events" },
-  { to: "/bocconi-101", tr: "Bocconi 101", en: "Bocconi 101" },
-  { to: "/notes", tr: "Notlar", en: "Notes" },
-  { to: "/turkish-culture", tr: "Türk Kültürü", en: "Turkish Culture" },
-  { to: "/turkey", tr: "Türkiye", en: "Turkey" },
-  { to: "/italy", tr: "İtalya", en: "Italy" },
-  { to: "/about", tr: "Biz Kimiz", en: "About" },
-  { to: "/contact", tr: "İletişim", en: "Contact" },
-] as const;
+const menu101 = [...sub101, { to: "/notes", tr: "Ders Notları", en: "Course Notes" }] as const;
 
 const linkCls = "opacity-80 hover:opacity-100 data-[status=active]:opacity-100 data-[status=active]:text-gold whitespace-nowrap";
 
 export function SiteShell({ children }: { children: ReactNode }) {
   const { lang, setLang, t } = useLang();
+  // Travel guide follows the visitor's language: Turkish visitors get Italy, international visitors get Türkiye
+  const nav = [
+    { to: "/", tr: "Etkinlikler", en: "Events" },
+    { to: "/bocconi-101", tr: "Bocconi 101", en: "Bocconi 101" },
+    lang === "tr" ? { to: "/italy", tr: "İtalya Gezi", en: "Italy Guide" } : { to: "/turkey", tr: "Türkiye Gezi", en: "Travel Türkiye" },
+    { to: "/turkish-culture", tr: "Türk Kültürü", en: "Turkish Culture" },
+    { to: "/about", tr: "Ekip & İletişim", en: "Team & Contact" },
+  ] as const;
   return (
     <div className="min-h-screen flex flex-col">
       <header className="sticky top-0 z-30 bg-primary text-primary-foreground">
@@ -30,14 +29,14 @@ export function SiteShell({ children }: { children: ReactNode }) {
           <Link to="/" className="font-display text-2xl">
             Bocconi<span className="text-gold">TSA</span>
           </Link>
-          <nav className="hidden lg:flex gap-5 text-sm ml-auto items-center">
+          <nav className="hidden md:flex gap-6 text-sm ml-auto items-center">
             {nav.map((n) =>
               n.to === "/bocconi-101" ? (
                 <div key={n.to} className="relative group">
                   <Link to={n.to} className={linkCls}>{t(n)} ▾</Link>
                   <div className="absolute left-0 top-full pt-3 hidden group-hover:block">
                     <div className="rounded-lg bg-card text-card-foreground shadow-lg border p-2 min-w-44">
-                      {sub101.map((s) => (
+                      {menu101.map((s) => (
                         <Link key={s.to} to={s.to} activeOptions={{ exact: true }} className="block rounded px-3 py-2 hover:bg-muted data-[status=active]:text-primary data-[status=active]:font-bold">
                           {t(s)}
                         </Link>
@@ -50,7 +49,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
               ),
             )}
           </nav>
-          <div className="ml-auto lg:ml-0 flex rounded-full border border-primary-foreground/30 text-xs font-bold overflow-hidden">
+          <div className="ml-auto md:ml-0 flex rounded-full border border-primary-foreground/30 text-xs font-bold overflow-hidden">
             {(["tr", "en"] as const).map((l) => (
               <button key={l} onClick={() => setLang(l)} className={`px-3 py-1.5 uppercase ${lang === l ? "bg-gold text-gold-foreground" : ""}`}>
                 {l}
@@ -58,7 +57,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
             ))}
           </div>
         </div>
-        <nav className="lg:hidden flex gap-4 overflow-x-auto px-5 pb-3 text-sm">
+        <nav className="md:hidden flex gap-4 overflow-x-auto px-5 pb-3 text-sm">
           {nav.map((n) => (
             <Link key={n.to} to={n.to} activeOptions={{ exact: n.to === "/" }} className={linkCls}>{t(n)}</Link>
           ))}
@@ -72,7 +71,9 @@ export function SiteShell({ children }: { children: ReactNode }) {
             <p className="opacity-60 mt-1">{t({ tr: "Bocconi Türk Öğrenciler Derneği · Milano", en: "Bocconi Turkish Students Association · Milan" })}</p>
           </div>
           <div className="flex gap-5 self-center">
-            <Link to="/contact" className="hover:text-gold">{t({ tr: "İletişim", en: "Contact" })}</Link>
+            <Link to="/italy" className="hover:text-gold">{t({ tr: "İtalya Gezi", en: "Italy Guide" })}</Link>
+            <Link to="/turkey" className="hover:text-gold">{t({ tr: "Türkiye Gezi", en: "Travel Türkiye" })}</Link>
+            <Link to="/about" className="hover:text-gold">{t({ tr: "Ekip & İletişim", en: "Team & Contact" })}</Link>
             <a href="https://instagram.com" target="_blank" rel="noreferrer" className="text-gold hover:underline">Instagram →</a>
           </div>
         </div>

@@ -3,7 +3,7 @@ import milan from "@/assets/milan.jpg";
 import { SiteShell, PageHero } from "@/components/SiteShell";
 import { useLang } from "@/lib/i18n";
 
-export const Route = createFileRoute("/bocconi-101")({
+export const Route = createFileRoute("/bocconi-101/")({
   head: () => ({
     meta: [
       { title: "Bocconi 101 — Newcomer Guide | BocconiTSA" },
@@ -55,10 +55,10 @@ function Page() {
         ))}
       </section>
       <section className="mx-auto max-w-6xl px-5 pb-16 grid sm:grid-cols-2 gap-4">
-        <Link to="/dorm-tours" className="rounded-xl bg-primary text-primary-foreground p-6 hover:opacity-95">
+        <Link to="/bocconi-101/dorm-tours" className="rounded-xl bg-primary text-primary-foreground p-6 hover:opacity-95">
           <div className="eyebrow">→</div><div className="font-display text-2xl">{t({ tr: "Yurt turlarını izle", en: "Watch dorm tours" })}</div>
         </Link>
-        <Link to="/places" className="rounded-xl bg-gold text-gold-foreground p-6 hover:opacity-95">
+        <Link to="/bocconi-101/places" className="rounded-xl bg-gold text-gold-foreground p-6 hover:opacity-95">
           <div className="text-xs font-bold">→</div><div className="font-display text-2xl">{t({ tr: "Kampüs çevresi mekanlar", en: "Places around campus" })}</div>
         </Link>
       </section>

@@ -3,7 +3,7 @@ import { SiteShell, PageHero } from "@/components/SiteShell";
 import { places } from "@/lib/data";
 import { useLang } from "@/lib/i18n";
 
-export const Route = createFileRoute("/places")({
+export const Route = createFileRoute("/bocconi-101/places")({
   head: () => ({
     meta: [
       { title: "Places Around Bocconi — Food & Cafés | BocconiTSA" },

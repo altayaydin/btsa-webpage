@@ -4,7 +4,7 @@ import { SiteShell, PageHero } from "@/components/SiteShell";
 import { dorms } from "@/lib/data";
 import { useLang } from "@/lib/i18n";
 
-export const Route = createFileRoute("/dorm-tours")({
+export const Route = createFileRoute("/bocconi-101/dorm-tours")({
   head: () => ({
     meta: [
       { title: "Dorm Tours — Bocconi Residences | BocconiTSA" },

@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { SiteShell, PageHero } from "@/components/SiteShell";
+import { SiteShell, PageHero, Bocconi101Tabs } from "@/components/SiteShell";
 import { places } from "@/lib/data";
 import { useLang } from "@/lib/i18n";
 
@@ -20,6 +20,7 @@ function Page() {
   return (
     <SiteShell>
       <PageHero eyebrow={t({ tr: "Öğrenci onaylı", en: "Student approved" })} title={t({ tr: "Bocconi etrafında mekanlar", en: "Places around Bocconi" })} />
+      <Bocconi101Tabs />
       <section className="mx-auto max-w-6xl px-5 py-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {places.map((p) => (
           <article key={p.name} className="rounded-xl border p-6 hover:border-gold transition-colors">

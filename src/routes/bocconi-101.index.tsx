@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import milan from "@/assets/milan.jpg";
-import { SiteShell, PageHero } from "@/components/SiteShell";
+import { SiteShell, PageHero, Bocconi101Tabs } from "@/components/SiteShell";
 import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/bocconi-101/")({
@@ -43,6 +43,7 @@ function Page() {
   return (
     <SiteShell>
       <PageHero img={milan} eyebrow="Bocconi 101" title={t({ tr: "Yeni gelenler için rehber", en: "The newcomer's guide" })} sub={t({ tr: "İtalya'ya ve Bocconi'ye ilk adımın için bilmen gerekenler.", en: "What you need for your first steps in Italy and at Bocconi." })} />
+      <Bocconi101Tabs />
       <section className="mx-auto max-w-6xl px-5 py-14 grid md:grid-cols-2 gap-6">
         {sections.map((s, i) => (
           <div key={i} className="rounded-xl border p-6">

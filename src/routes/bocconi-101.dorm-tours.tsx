@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import dorm from "@/assets/dorm.jpg";
-import { SiteShell, PageHero } from "@/components/SiteShell";
+import { SiteShell, PageHero, Bocconi101Tabs } from "@/components/SiteShell";
 import { dorms } from "@/lib/data";
 import { useLang } from "@/lib/i18n";
 
@@ -21,6 +21,7 @@ function Page() {
   return (
     <SiteShell>
       <PageHero eyebrow={t({ tr: "Medya ekibimizden", en: "From our media team" })} title={t({ tr: "Yurt odası turları", en: "Dorm room tours" })} sub={t({ tr: "Başvurmadan önce odaları gerçekten gör.", en: "See the rooms for real before you apply." })} />
+      <Bocconi101Tabs />
       <section className="mx-auto max-w-6xl px-5 py-14 grid sm:grid-cols-2 gap-6">
         {dorms.map((d) => (
           <article key={d.name} className="rounded-xl border overflow-hidden">

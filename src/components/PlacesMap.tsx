@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import maplibregl from "maplibre-gl";
+import * as maplibregl from "maplibre-gl";
 import workerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { BOCCONI, placeCats, places } from "@/lib/data";
@@ -33,7 +33,7 @@ export default function PlacesMap({ visible, active, onSelect, lang }: Props) {
     places.forEach((p) => {
       const node = document.createElement("button");
       node.className = "map-pin";
-      node.dataset.cat = p.cat;
+      node.dataset["cat"] = p.cat;
       node.innerHTML = `<span>${placeCats[p.cat].emoji}</span>`;
       node.addEventListener("click", (e) => { e.stopPropagation(); onSelect(p.name); });
       markers.current[p.name] = { m: new maplibregl.Marker({ element: node, anchor: "bottom" }).setLngLat([p.lng, p.lat]).addTo(m), node };

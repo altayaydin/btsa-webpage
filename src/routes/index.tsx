@@ -1,8 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import hero from "@/assets/hero.jpg";
 import { SiteShell } from "@/components/SiteShell";
-import { EventCalendar } from "@/components/EventCalendar";
-import { events, posts } from "@/lib/data";
+import { DateBadge } from "@/components/EventList";
+import { EventsView } from "@/components/EventsView";
+import { Feed } from "@/components/Feed";
+import { events, linkLabel, todayKey } from "@/lib/events";
+import { posts } from "@/lib/posts";
 import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/")({
@@ -11,16 +14,16 @@ export const Route = createFileRoute("/")({
       { title: "BocconiTSA — Turkish Students Association at Bocconi" },
       { name: "description", content: "Events, parties and community for Turkish students at Bocconi University, Milan." },
       { property: "og:title", content: "BocconiTSA — Turkish Students at Bocconi" },
-      { property: "og:description", content: "Events calendar, monthly recap and community for Turkish students in Milan." },
+      { property: "og:description", content: "Events calendar, recaps and community for Turkish students in Milan." },
     ],
   }),
   component: Index,
 });
 
 function Index() {
-  const { lang, t } = useLang();
-  const locale = lang === "tr" ? "tr-TR" : "en-GB";
-  const upcoming = events.filter((e) => e.date >= "2026-10-27").slice(0, 4);
+  const { t } = useLang();
+  const today = todayKey();
+  const upcoming = events.filter((e) => e.date >= today).slice(0, 4);
   return (
     <SiteShell>
       <section className="relative text-primary-foreground overflow-hidden">
@@ -34,48 +37,44 @@ function Index() {
       </section>
 
       <section className="mx-auto max-w-6xl px-5 py-14 grid lg:grid-cols-[1fr_340px] gap-10">
-        <div>
+        <div className="min-w-0">
           <div className="eyebrow">{t({ tr: "Takvim", en: "Calendar" })}</div>
           <h2 className="text-4xl mt-2 mb-6">{t({ tr: "Etkinliklerimiz", en: "Our events" })}</h2>
-          <EventCalendar />
+          <EventsView />
         </div>
-        <aside>
+        {/* Hidden on smaller screens, where the list view already shows what's coming up */}
+        <aside className="hidden lg:block">
           <h3 className="text-2xl mb-4">{t({ tr: "Yaklaşanlar", en: "Coming up" })}</h3>
           <ul className="space-y-3">
-            {upcoming.map((e) => {
-              const d = new Date(e.date);
-              return (
-                <li key={e.id} className="flex gap-4 rounded-lg border p-3">
-                  <div className="w-14 shrink-0 rounded-md bg-primary text-primary-foreground text-center py-1">
-                    <div className="font-display text-2xl leading-tight">{d.getDate()}</div>
-                    <div className="text-[10px] uppercase text-gold font-bold">{d.toLocaleDateString(locale, { month: "short" })}</div>
+            {upcoming.map((e) => (
+              <li key={e.id} className="flex gap-4 rounded-lg border p-3">
+                <DateBadge day={e.day} />
+                <div>
+                  <div className="font-semibold">{t(e.name)}</div>
+                  <div className="text-xs text-muted-foreground">
+                    {e.time && `${e.time} · `}
+                    <a href={e.mapsUrl} target="_blank" rel="noreferrer" className="hover:text-primary hover:underline">{e.location.name}</a>
                   </div>
-                  <div>
-                    <div className="font-semibold">{t(e.title)}</div>
-                    <div className="text-xs text-muted-foreground">{e.time} · {e.place}</div>
-                  </div>
-                </li>
-              );
-            })}
+                  {e.link && (
+                    <a href={e.link} target="_blank" rel="noreferrer" className="mt-1 inline-block text-xs font-bold text-primary hover:underline">{t(linkLabel(e))}</a>
+                  )}
+                </div>
+              </li>
+            ))}
+            {!upcoming.length && <li className="text-sm text-muted-foreground">{t({ tr: "Yakında yeni etkinlikler.", en: "New events coming soon." })}</li>}
           </ul>
         </aside>
       </section>
 
-      <section className="bg-muted">
-        <div className="mx-auto max-w-6xl px-5 py-14">
-          <div className="eyebrow">Feed</div>
-          <h2 className="text-4xl mt-2 mb-6">{t({ tr: "Bu ay neler oldu?", en: "What happened this month" })}</h2>
-          <div className="grid md:grid-cols-2 gap-5">
-            {posts.map((p) => (
-              <article key={p.date} className="rounded-xl bg-card p-6 border-l-4 border-gold">
-                <div className="text-xs text-muted-foreground">{new Date(p.date).toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" })}</div>
-                <h3 className="text-2xl mt-1">{t(p.title)}</h3>
-                <p className="mt-2 text-muted-foreground">{t(p.body)}</p>
-              </article>
-            ))}
+      {posts.length > 0 && (
+        <section className="bg-muted">
+          <div className="mx-auto max-w-6xl px-5 py-14">
+            <div className="eyebrow">Feed</div>
+            <h2 className="text-4xl mt-2 mb-6">{t({ tr: "Neler yaptık?", en: "What we've been up to" })}</h2>
+            <Feed />
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </SiteShell>
   );
 }

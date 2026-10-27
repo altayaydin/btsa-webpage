@@ -24,6 +24,8 @@ export default function PlacesMap({ visible, active, onSelect, lang }: Props) {
     });
     map.current = m;
     m.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
+    // The compact attribution starts expanded and covers the map on phones; start it collapsed
+    m.once("load", () => el.current?.querySelector(".maplibregl-ctrl-attrib")?.classList.remove("maplibregl-compact-show"));
 
     const home = document.createElement("div");
     home.className = "map-pin-home";

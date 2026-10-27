@@ -15,12 +15,12 @@ import { Route as Bocconi101RouteImport } from './routes/bocconi-101'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DormToursRouteImport } from './routes/dorm-tours'
 import { Route as ItalyRouteImport } from './routes/italy'
-import { Route as NotesRouteImport } from './routes/notes'
 import { Route as PlacesRouteImport } from './routes/places'
 import { Route as TurkeyRouteImport } from './routes/turkey'
 import { Route as TurkishCultureRouteImport } from './routes/turkish-culture'
 import { Route as Bocconi101IndexRouteImport } from './routes/bocconi-101.index'
 import { Route as Bocconi101DormToursRouteImport } from './routes/bocconi-101.dorm-tours'
+import { Route as Bocconi101NotesRouteImport } from './routes/bocconi-101.notes'
 import { Route as Bocconi101PlacesRouteImport } from './routes/bocconi-101.places'
 
 const IndexRoute = IndexRouteImport.update({
@@ -53,11 +53,6 @@ const ItalyRoute = ItalyRouteImport.update({
   path: '/italy',
   getParentRoute: () => rootRouteImport,
 } as any)
-const NotesRoute = NotesRouteImport.update({
-  id: '/notes',
-  path: '/notes',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PlacesRoute = PlacesRouteImport.update({
   id: '/places',
   path: '/places',
@@ -83,6 +78,11 @@ const Bocconi101DormToursRoute = Bocconi101DormToursRouteImport.update({
   path: '/dorm-tours',
   getParentRoute: () => Bocconi101Route,
 } as any)
+const Bocconi101NotesRoute = Bocconi101NotesRouteImport.update({
+  id: '/notes',
+  path: '/notes',
+  getParentRoute: () => Bocconi101Route,
+} as any)
 const Bocconi101PlacesRoute = Bocconi101PlacesRouteImport.update({
   id: '/places',
   path: '/places',
@@ -96,11 +96,11 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/dorm-tours': typeof DormToursRoute
   '/italy': typeof ItalyRoute
-  '/notes': typeof NotesRoute
   '/places': typeof PlacesRoute
   '/turkey': typeof TurkeyRoute
   '/turkish-culture': typeof TurkishCultureRoute
   '/bocconi-101/dorm-tours': typeof Bocconi101DormToursRoute
+  '/bocconi-101/notes': typeof Bocconi101NotesRoute
   '/bocconi-101/places': typeof Bocconi101PlacesRoute
   '/bocconi-101/': typeof Bocconi101IndexRoute
 }
@@ -110,11 +110,11 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/dorm-tours': typeof DormToursRoute
   '/italy': typeof ItalyRoute
-  '/notes': typeof NotesRoute
   '/places': typeof PlacesRoute
   '/turkey': typeof TurkeyRoute
   '/turkish-culture': typeof TurkishCultureRoute
   '/bocconi-101/dorm-tours': typeof Bocconi101DormToursRoute
+  '/bocconi-101/notes': typeof Bocconi101NotesRoute
   '/bocconi-101/places': typeof Bocconi101PlacesRoute
   '/bocconi-101': typeof Bocconi101IndexRoute
 }
@@ -126,11 +126,11 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/dorm-tours': typeof DormToursRoute
   '/italy': typeof ItalyRoute
-  '/notes': typeof NotesRoute
   '/places': typeof PlacesRoute
   '/turkey': typeof TurkeyRoute
   '/turkish-culture': typeof TurkishCultureRoute
   '/bocconi-101/dorm-tours': typeof Bocconi101DormToursRoute
+  '/bocconi-101/notes': typeof Bocconi101NotesRoute
   '/bocconi-101/places': typeof Bocconi101PlacesRoute
   '/bocconi-101/': typeof Bocconi101IndexRoute
 }
@@ -143,11 +143,11 @@ export interface FileRouteTypes {
     | '/contact'
     | '/dorm-tours'
     | '/italy'
-    | '/notes'
     | '/places'
     | '/turkey'
     | '/turkish-culture'
     | '/bocconi-101/dorm-tours'
+    | '/bocconi-101/notes'
     | '/bocconi-101/places'
     | '/bocconi-101/'
   fileRoutesByTo: FileRoutesByTo
@@ -157,11 +157,11 @@ export interface FileRouteTypes {
     | '/contact'
     | '/dorm-tours'
     | '/italy'
-    | '/notes'
     | '/places'
     | '/turkey'
     | '/turkish-culture'
     | '/bocconi-101/dorm-tours'
+    | '/bocconi-101/notes'
     | '/bocconi-101/places'
     | '/bocconi-101'
   id:
@@ -172,11 +172,11 @@ export interface FileRouteTypes {
     | '/contact'
     | '/dorm-tours'
     | '/italy'
-    | '/notes'
     | '/places'
     | '/turkey'
     | '/turkish-culture'
     | '/bocconi-101/dorm-tours'
+    | '/bocconi-101/notes'
     | '/bocconi-101/places'
     | '/bocconi-101/'
   fileRoutesById: FileRoutesById
@@ -188,7 +188,6 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   DormToursRoute: typeof DormToursRoute
   ItalyRoute: typeof ItalyRoute
-  NotesRoute: typeof NotesRoute
   PlacesRoute: typeof PlacesRoute
   TurkeyRoute: typeof TurkeyRoute
   TurkishCultureRoute: typeof TurkishCultureRoute
@@ -238,13 +237,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ItalyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/notes': {
-      id: '/notes'
-      path: '/notes'
-      fullPath: '/notes'
-      preLoaderRoute: typeof NotesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/places': {
       id: '/places'
       path: '/places'
@@ -280,6 +272,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Bocconi101DormToursRouteImport
       parentRoute: typeof Bocconi101Route
     }
+    '/bocconi-101/notes': {
+      id: '/bocconi-101/notes'
+      path: '/notes'
+      fullPath: '/bocconi-101/notes'
+      preLoaderRoute: typeof Bocconi101NotesRouteImport
+      parentRoute: typeof Bocconi101Route
+    }
     '/bocconi-101/places': {
       id: '/bocconi-101/places'
       path: '/places'
@@ -292,12 +291,14 @@ declare module '@tanstack/react-router' {
 
 interface Bocconi101RouteChildren {
   Bocconi101DormToursRoute: typeof Bocconi101DormToursRoute
+  Bocconi101NotesRoute: typeof Bocconi101NotesRoute
   Bocconi101PlacesRoute: typeof Bocconi101PlacesRoute
   Bocconi101IndexRoute: typeof Bocconi101IndexRoute
 }
 
 const Bocconi101RouteChildren: Bocconi101RouteChildren = {
   Bocconi101DormToursRoute: Bocconi101DormToursRoute,
+  Bocconi101NotesRoute: Bocconi101NotesRoute,
   Bocconi101PlacesRoute: Bocconi101PlacesRoute,
   Bocconi101IndexRoute: Bocconi101IndexRoute,
 }
@@ -313,7 +314,6 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   DormToursRoute: DormToursRoute,
   ItalyRoute: ItalyRoute,
-  NotesRoute: NotesRoute,
   PlacesRoute: PlacesRoute,
   TurkeyRoute: TurkeyRoute,
   TurkishCultureRoute: TurkishCultureRoute,

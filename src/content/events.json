@@ -1,0 +1,68 @@
+[
+  {
+    "name": { "tr": "Hoş Geldin Partisi", "en": "Welcome Party" },
+    "date": "2026-10-03",
+    "time": "21:00",
+    "location": { "name": "Navigli" },
+    "tags": ["party"],
+    "description": { "tr": "Yeni dönemi yeni gelenlerle kutladık.", "en": "We kicked off the semester with the newcomers." }
+  },
+  {
+    "name": { "tr": "Kahvaltı Buluşması", "en": "Turkish Breakfast Meetup" },
+    "date": "2026-10-12",
+    "time": "13:00",
+    "location": { "name": "Bocconi Velodromo" },
+    "tags": ["culture", "social"],
+    "description": { "tr": "Simit, menemen ve çay ile pazar kahvaltısı.", "en": "Sunday breakfast with simit, menemen and tea." }
+  },
+  {
+    "name": { "tr": "29 Ekim Cumhuriyet Bayramı", "en": "Republic Day Celebration" },
+    "date": "2026-10-29",
+    "time": "19:00",
+    "location": { "name": "Aula Magna, Università Bocconi" },
+    "tags": ["culture"],
+    "description": { "tr": "Cumhuriyetimizin 103. yılını birlikte kutluyoruz.", "en": "Celebrating 103 years of the Turkish Republic together." }
+  },
+  {
+    "name": { "tr": "BTSA Kasım Partisi", "en": "BTSA November Party" },
+    "date": "2026-11-07",
+    "time": "22:30",
+    "location": { "name": "Corso Como" },
+    "tags": ["party"],
+    "description": { "tr": "Ayın büyük partisi. Biletler Instagram'da.", "en": "The big party of the month. Tickets on Instagram." },
+    "link": "https://www.instagram.com/bocconitsa/",
+    "linkLabel": { "tr": "Bilet al →", "en": "Get tickets →" }
+  },
+  {
+    "name": { "tr": "10 Kasım Anma", "en": "Atatürk Memorial" },
+    "date": "2026-11-10",
+    "time": "18:30",
+    "location": { "name": "Room N01, Università Bocconi" },
+    "tags": ["culture"],
+    "description": { "tr": "Atatürk'ü saygı ve özlemle anıyoruz.", "en": "Commemorating Atatürk with respect." }
+  },
+  {
+    "name": { "tr": "Kariyer Sohbeti: Mezunlarla", "en": "Career Talk with Alumni" },
+    "date": "2026-11-18",
+    "time": "18:00",
+    "location": { "name": "Room AS01, Università Bocconi" },
+    "tags": ["career"],
+    "description": { "tr": "Londra ve İstanbul'da çalışan mezunlarımızla soru-cevap.", "en": "Q&A with alumni working in London and Istanbul." }
+  },
+  {
+    "name": { "tr": "Tavla & Okey Gecesi", "en": "Backgammon & Okey Night" },
+    "date": "2026-11-28",
+    "time": "20:00",
+    "location": { "name": "Porta Romana" },
+    "tags": ["social"],
+    "description": { "tr": "Turnuva, çay ve bol sohbet.", "en": "Tournament, tea and lots of chatting." }
+  },
+  {
+    "name": { "tr": "Yılbaşı Öncesi Parti", "en": "Pre-Holiday Party" },
+    "date": "2026-12-12",
+    "time": "22:00",
+    "location": { "name": "Isola" },
+    "tags": ["party"],
+    "description": { "tr": "Sınavlardan önce son büyük parti.", "en": "The last big party before exams." }
+  }
+]

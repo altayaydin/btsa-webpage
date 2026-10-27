@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { SiteShell, PageHero } from "@/components/SiteShell";
+import { SiteShell, PageHero, Bocconi101Tabs, ChipRow } from "@/components/SiteShell";
 import { useLang } from "@/lib/i18n";
 
-export const Route = createFileRoute("/notes")({
+export const Route = createFileRoute("/bocconi-101/notes")({
   head: () => ({
     meta: [
       { title: "Course Notes — BocconiTSA" },
@@ -35,17 +35,20 @@ function Page() {
   return (
     <SiteShell>
       <PageHero eyebrow={t({ tr: "Not paylaşımı", en: "Notes sharing" })} title={t({ tr: "Ders notları", en: "Course notes" })} sub={t({ tr: "Birbirimize destek olalım. Notlarını paylaş, başkalarınınkini bul.", en: "Help each other out. Share your notes, find others'." })} />
+      <Bocconi101Tabs />
       <section className="mx-auto max-w-6xl px-5 py-10">
         <div className="rounded-lg bg-accent text-accent-foreground p-4 text-sm mb-6">
           {t({ tr: "Yakında: Notlarını doğrudan siteden yükleyebileceksin. Şimdilik bize e-postayla gönder.", en: "Coming soon: upload your notes directly. For now, send them to us by email." })}
         </div>
-        <div className="flex flex-wrap gap-3 mb-6">
-          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={t({ tr: "Ders ara…", en: "Search course…" })} className="h-10 rounded-full border px-4 flex-1 min-w-48 bg-background" />
-          {[0, 1, 2, 3].map((y) => (
-            <button key={y} onClick={() => setYear(y)} className={`h-10 rounded-full px-4 text-sm font-semibold border ${year === y ? "bg-primary text-primary-foreground border-primary" : ""}`}>
-              {y === 0 ? t({ tr: "Tümü", en: "All" }) : t({ tr: `${y}. sınıf`, en: `Year ${y}` })}
-            </button>
-          ))}
+        <div className="flex flex-col sm:flex-row gap-3 mb-6">
+          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={t({ tr: "Ders ara…", en: "Search course…" })} className="h-10 w-full sm:flex-1 rounded-full border px-4 bg-background" />
+          <ChipRow>
+            {[0, 1, 2, 3].map((y) => (
+              <button key={y} onClick={() => setYear(y)} className={`h-10 rounded-full px-4 text-sm font-semibold border ${year === y ? "bg-primary text-primary-foreground border-primary" : ""}`}>
+                {y === 0 ? t({ tr: "Tümü", en: "All" }) : t({ tr: `${y}. sınıf`, en: `Year ${y}` })}
+              </button>
+            ))}
+          </ChipRow>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {list.map((n) => (

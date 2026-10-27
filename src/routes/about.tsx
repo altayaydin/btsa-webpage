@@ -1,12 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteShell, PageHero, Section } from "@/components/SiteShell";
+import { social } from "@/lib/data";
 import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: "Team & Contact — BocconiTSA" },
-      { name: "description", content: "Meet the BocconiTSA board, what we do, and how to reach us on Instagram." },
+      { name: "description", content: "Supporting Turkish students at Bocconi with events, networking, and cultural exchange. Meet our board and get in touch." },
       { property: "og:title", content: "BocconiTSA — Team & Contact" },
       { property: "og:description", content: "Our mission, our board and how to get in touch." },
     ],
@@ -14,32 +15,50 @@ export const Route = createFileRoute("/about")({
   component: Page,
 });
 
-const INSTAGRAM_DM = "https://ig.me/m/bocconitsa"; // replace with real handle
-
+// The four focus areas from our LinkedIn About section
 const pillars = [
-  { t: { tr: "Topluluk", en: "Community" }, d: { tr: "Partiler, kahvaltılar, oyun geceleri.", en: "Parties, breakfasts, game nights." } },
-  { t: { tr: "Rehberlik", en: "Guidance" }, d: { tr: "Yeni gelenlere bürokrasiden yurda destek.", en: "Helping newcomers from paperwork to housing." } },
-  { t: { tr: "Kültür", en: "Culture" }, d: { tr: "Türk kültürünü Bocconi'ye tanıtmak.", en: "Sharing Turkish culture with Bocconi." } },
-  { t: { tr: "Kariyer", en: "Career" }, d: { tr: "Mezun ağı ve sektör sohbetleri.", en: "Alumni network and industry talks." } },
+  { t: { tr: "Topluluk & Networking", en: "Community & Networking" }, d: { tr: "Üyelerimizi birbirine ve Bocconi topluluğuna bağlıyoruz.", en: "Connecting members with each other and the wider Bocconi community." } },
+  { t: { tr: "Kültürel Değişim", en: "Cultural Exchange" }, d: { tr: "Türk geleneklerini Bocconi'ye tanıtıyoruz.", en: "Introducing Turkish traditions to the Bocconi community." } },
+  { t: { tr: "Akademik & Kariyer", en: "Academic & Career" }, d: { tr: "Seminerler, atölyeler, profesyoneller ve mezunlarla networking.", en: "Seminars, workshops and networking with professionals and alumni." } },
+  { t: { tr: "Öğrenci Hayatı", en: "Student Life" }, d: { tr: "Hoş geldin etkinlikleri ve diğer derneklerle iş birlikleri.", en: "Welcome events and collaborations with other associations." } },
 ];
 
-// Sample board — replace with real members
-const board = [
-  { name: "Ad Soyad", role: { tr: "Başkan", en: "President" }, program: "BIEM, 3rd year", email: "president@bocconitsa.com", linkedin: "https://linkedin.com" },
-  { name: "Ad Soyad", role: { tr: "Başkan Yardımcısı", en: "Vice President" }, program: "BEMACS, 2nd year", email: "vp@bocconitsa.com", linkedin: "https://linkedin.com" },
-  { name: "Ad Soyad", role: { tr: "Etkinlik Sorumlusu", en: "Head of Events" }, program: "CLEAM, 2nd year", email: "events@bocconitsa.com", linkedin: "https://linkedin.com" },
-  { name: "Ad Soyad", role: { tr: "Medya Sorumlusu", en: "Head of Media" }, program: "BIEF, 2nd year", email: "media@bocconitsa.com", linkedin: "https://linkedin.com" },
-  { name: "Ad Soyad", role: { tr: "Sponsorluk Sorumlusu", en: "Head of Partnerships" }, program: "MSc Finance", email: "partners@bocconitsa.com", linkedin: "https://linkedin.com" },
-  { name: "Ad Soyad", role: { tr: "Sayman", en: "Treasurer" }, program: "BIEM, 2nd year", email: "treasury@bocconitsa.com", linkedin: "https://linkedin.com" },
+const roles = {
+  president: { tr: "Başkan", en: "President" },
+  media: { tr: "Medya Birimi", en: "Media Division" },
+  events: { tr: "Etkinlik Birimi", en: "Events Division" },
+  career: { tr: "Kariyer Birimi", en: "Career Division" },
+  logistics: { tr: "Lojistik Birimi", en: "Logistics Division" },
+  sports: { tr: "Spor Birimi", en: "Sports Division" },
+  advisor: { tr: "Danışman", en: "Advisor" },
+};
+
+// program, email and linkedin are optional; a linkedin URL makes the name a link
+type Member = { name: string; role: { tr: string; en: string }; program?: string; email?: string; linkedin?: string };
+
+const board: Member[] = [
+  { name: "Selin Kışkır", role: roles.president, linkedin: "https://www.linkedin.com/in/selinkiskir1/" },
+  { name: "Cansu Uyar", role: roles.media, linkedin: "https://www.linkedin.com/in/cansu-uyar-4b47122b6/" },
+  { name: "Irmak Akyıldız", role: roles.events, linkedin: "https://www.linkedin.com/in/irmak-akyildiz-966517203/" },
+  { name: "Didem Pekağca", role: roles.events, linkedin: "https://www.linkedin.com/in/zeynep-didem-pekagca/" },
+  { name: "Zeynep Eylül Öksüz", role: roles.career, linkedin: "https://www.linkedin.com/in/zeynep-eylül-öksüz-b4a4052b3/" },
+  { name: "İzlem Yılmaz", role: roles.logistics, linkedin: "https://www.linkedin.com/in/izlemyilmaz/" },
+  { name: "Rüya Bekmezci", role: roles.logistics, linkedin: "https://www.linkedin.com/in/ruyabekmezci/" },
+  { name: "Ayberk Akarsu", role: roles.sports, linkedin: "https://www.linkedin.com/in/rıza-ayberk-akarsu-459aa026b/" },
+  { name: "Elif Necla Akoğlu", role: roles.advisor, linkedin: "https://www.linkedin.com/in/elifneclaakoglu/" },
 ];
 
-const initials = (n: string) => n.split(" ").map((p) => p[0]).join("").slice(0, 2);
+// First and last name, so "Zeynep Eylül Öksüz" is ZÖ
+const initials = (n: string) => {
+  const parts = n.split(" ");
+  return `${parts[0]?.[0] ?? ""}${parts.length > 1 ? (parts.at(-1)?.[0] ?? "") : ""}`;
+};
 
 function Page() {
   const { t } = useLang();
   return (
     <SiteShell>
-      <PageHero eyebrow="BocconiTSA" title={t({ tr: "Bocconi'deki Türk öğrencilerin evi", en: "The home of Turkish students at Bocconi" })} sub={t({ tr: "BTSA, Bocconi Üniversitesi'ndeki Türk öğrencileri bir araya getiren öğrenci derneğidir.", en: "BTSA is the student association bringing together Turkish students at Bocconi University." })} />
+      <PageHero eyebrow="BocconiTSA" title={t({ tr: "Bocconi'deki Türk öğrencilerin evi", en: "The home of Turkish students at Bocconi" })} sub={t({ tr: "BTSA, Bocconi'deki Türk öğrencileri ve Türk kültürüne, iş dünyasına ve topluluk hayatına ilgi duyan herkesi bir araya getiren öğrenci derneğidir.", en: "BTSA brings together Turkish students at Bocconi and everyone interested in Turkish culture, business and community life." })} />
       <Section eyebrow={t({ tr: "Ne yapıyoruz", en: "What we do" })} title={t({ tr: "Dört temel alan", en: "Four pillars" })}>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {pillars.map((p) => (
@@ -56,13 +75,18 @@ function Page() {
             <article key={i} className="rounded-xl bg-card p-5 flex gap-4 items-start">
               <div className="h-14 w-14 shrink-0 rounded-full bg-primary text-gold grid place-items-center font-display text-xl">{initials(m.name)}</div>
               <div className="min-w-0">
-                <div className="text-xs font-bold uppercase tracking-wider text-gold">{t(m.role)}</div>
-                <h3 className="text-xl">{m.name}</h3>
-                <div className="text-xs text-muted-foreground">{m.program}</div>
-                <div className="mt-3 flex flex-wrap gap-2 text-xs font-semibold">
-                  <a href={`mailto:${m.email}`} className="rounded-full border px-3 py-1 hover:border-gold truncate">✉ {m.email}</a>
-                  <a href={m.linkedin} target="_blank" rel="noreferrer" className="rounded-full bg-primary text-primary-foreground px-3 py-1">LinkedIn</a>
-                </div>
+                <h3 className="text-xl">
+                  {m.linkedin ? (
+                    <a href={m.linkedin} target="_blank" rel="noreferrer" className="hover:text-primary hover:underline">{m.name}</a>
+                  ) : (
+                    m.name
+                  )}
+                </h3>
+                <div className="mt-0.5 text-xs font-bold uppercase tracking-wider text-gold">{t(m.role)}</div>
+                {m.program && <div className="text-xs text-muted-foreground">{m.program}</div>}
+                {m.email && (
+                  <a href={`mailto:${m.email}`} className="mt-3 inline-block rounded-full border px-3 py-1 text-xs font-semibold hover:border-gold truncate max-w-full">✉ {m.email}</a>
+                )}
               </div>
             </article>
           ))}
@@ -75,7 +99,10 @@ function Page() {
             <h2 className="text-3xl mt-1">{t({ tr: "Bize Instagram'dan yaz", en: "Message us on Instagram" })}</h2>
             <p className="opacity-80 mt-1">{t({ tr: "Soruların, iş birlikleri veya ekibe katılmak için DM'lerimiz açık.", en: "Questions, partnerships or joining the team — our DMs are open." })}</p>
           </div>
-          <a href={INSTAGRAM_DM} target="_blank" rel="noreferrer" className="rounded-full bg-gold text-gold-foreground px-6 py-3 font-bold">{t({ tr: "DM gönder →", en: "Send a DM →" })}</a>
+          <div className="flex flex-wrap gap-3">
+            <a href={social.instagramDm} target="_blank" rel="noreferrer" className="rounded-full bg-gold text-gold-foreground px-6 py-3 font-bold">{t({ tr: "DM gönder →", en: "Send a DM →" })}</a>
+            <a href={social.linkedin} target="_blank" rel="noreferrer" className="rounded-full border border-primary-foreground/40 px-6 py-3 font-bold hover:border-gold">LinkedIn</a>
+          </div>
         </div>
       </section>
     </SiteShell>

@@ -10,33 +10,73 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as Bocconi101RouteImport } from './routes/bocconi-101'
+import { Route as DormToursRouteImport } from './routes/dorm-tours'
+import { Route as PlacesRouteImport } from './routes/places'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Bocconi101Route = Bocconi101RouteImport.update({
+  id: '/bocconi-101',
+  path: '/bocconi-101',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DormToursRoute = DormToursRouteImport.update({
+  id: '/dorm-tours',
+  path: '/dorm-tours',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlacesRoute = PlacesRouteImport.update({
+  id: '/places',
+  path: '/places',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/bocconi-101': typeof Bocconi101Route
+  '/dorm-tours': typeof DormToursRoute
+  '/places': typeof PlacesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/bocconi-101': typeof Bocconi101Route
+  '/dorm-tours': typeof DormToursRoute
+  '/places': typeof PlacesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/bocconi-101': typeof Bocconi101Route
+  '/dorm-tours': typeof DormToursRoute
+  '/places': typeof PlacesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/about' | '/bocconi-101' | '/dorm-tours' | '/places'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/about' | '/bocconi-101' | '/dorm-tours' | '/places'
+  id: '__root__' | '/' | '/about' | '/bocconi-101' | '/dorm-tours' | '/places'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  Bocconi101Route: typeof Bocconi101Route
+  DormToursRoute: typeof DormToursRoute
+  PlacesRoute: typeof PlacesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +88,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bocconi-101': {
+      id: '/bocconi-101'
+      path: '/bocconi-101'
+      fullPath: '/bocconi-101'
+      preLoaderRoute: typeof Bocconi101RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dorm-tours': {
+      id: '/dorm-tours'
+      path: '/dorm-tours'
+      fullPath: '/dorm-tours'
+      preLoaderRoute: typeof DormToursRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/places': {
+      id: '/places'
+      path: '/places'
+      fullPath: '/places'
+      preLoaderRoute: typeof PlacesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  Bocconi101Route: Bocconi101Route,
+  DormToursRoute: DormToursRoute,
+  PlacesRoute: PlacesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

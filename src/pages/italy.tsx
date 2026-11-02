@@ -1,18 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
 import italy from "@/assets/italy.jpg";
+import { PageMeta } from "@/components/PageMeta";
 import { SiteShell, PageHero, Section } from "@/components/SiteShell";
-
-export const Route = createFileRoute("/italy")({
-  head: () => ({
-    meta: [
-      { title: "İtalya Gezi Rehberi | BocconiTSA" },
-      { name: "description", content: "Bocconi'deki Türk öğrencilerden İtalya'da mutlaka görülecek şehirler, yenecek yemekler ve ipuçları." },
-      { property: "og:title", content: "İtalya Gezi Rehberi — BocconiTSA" },
-      { property: "og:description", content: "İtalya'da okurken kaçırmaman gereken şehirler, lezzetler ve deneyimler." },
-    ],
-  }),
-  component: Page,
-});
 
 // Turkish-only: written for Turkish students
 const cities = [
@@ -37,9 +25,15 @@ const tips = [
   "Kapuçino sadece sabah içilir, öğleden sonra sipariş etme!",
 ];
 
-function Page() {
+export default function Page() {
   return (
     <SiteShell only="tr">
+      <PageMeta
+        title="İtalya Gezi Rehberi | BocconiTSA"
+        description="Bocconi'deki Türk öğrencilerden İtalya'da mutlaka görülecek şehirler, yenecek yemekler ve ipuçları."
+        ogTitle="İtalya Gezi Rehberi — BocconiTSA"
+        ogDescription="İtalya'da okurken kaçırmaman gereken şehirler, lezzetler ve deneyimler."
+      />
       <PageHero img={italy} eyebrow="İtalya rehberi" title="İtalya'dayken kaçırma" />
       <Section eyebrow="Görülecek yerler" title="Mutlaka git">
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">

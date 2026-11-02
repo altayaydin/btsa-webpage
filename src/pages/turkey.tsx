@@ -1,18 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
 import turkey from "@/assets/turkey.jpg";
+import { PageMeta } from "@/components/PageMeta";
 import { SiteShell, PageHero, Section } from "@/components/SiteShell";
-
-export const Route = createFileRoute("/turkey")({
-  head: () => ({
-    meta: [
-      { title: "Travel Türkiye — Student Picks | BocconiTSA" },
-      { name: "description", content: "Where young people actually go in Türkiye: Istanbul, Antalya, Cappadocia, İzmir and more, with our members' personal lists." },
-      { property: "og:title", content: "Travel Türkiye — BocconiTSA Student Picks" },
-      { property: "og:description", content: "Real recommendations from Turkish students, not boring guidebooks." },
-    ],
-  }),
-  component: Page,
-});
 
 // English-only: written for international visitors. Sample recommendation lists
 const cities = [
@@ -24,9 +12,15 @@ const cities = [
   { city: "Black Sea", by: "Mert", picks: ["Uzungöl lake", "Ayder plateau", "Tea gardens of Rize", "Sumela Monastery"] },
 ];
 
-function Page() {
+export default function Page() {
   return (
     <SiteShell only="en">
+      <PageMeta
+        title="Travel Türkiye — Student Picks | BocconiTSA"
+        description="Where young people actually go in Türkiye: Istanbul, Antalya, Cappadocia, İzmir and more, with our members' personal lists."
+        ogTitle="Travel Türkiye — BocconiTSA Student Picks"
+        ogDescription="Real recommendations from Turkish students, not boring guidebooks."
+      />
       <PageHero img={turkey} eyebrow="Travel Türkiye" title="Where do young people really go?" sub="Our members' personal lists instead of boring guidebooks." />
       <Section eyebrow="Our lists" title="City by city">
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">

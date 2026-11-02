@@ -1,19 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router";
 import milan from "@/assets/milan.jpg";
+import { PageMeta } from "@/components/PageMeta";
 import { SiteShell, PageHero, Bocconi101Tabs } from "@/components/SiteShell";
 import { useLang } from "@/lib/i18n";
-
-export const Route = createFileRoute("/bocconi-101/")({
-  head: () => ({
-    meta: [
-      { title: "Bocconi 101 — Newcomer Guide | BocconiTSA" },
-      { name: "description", content: "Everything new Turkish students need to know about Bocconi and life in Italy." },
-      { property: "og:title", content: "Bocconi 101 — Newcomer Guide" },
-      { property: "og:description", content: "Codice fiscale, permesso di soggiorno, housing, transport and campus life." },
-    ],
-  }),
-  component: Page,
-});
 
 const sections = [
   { title: { tr: "İtalya'ya varmadan önce", en: "Before you arrive" }, items: [
@@ -38,10 +27,16 @@ const sections = [
   ]},
 ];
 
-function Page() {
+export default function Page() {
   const { t } = useLang();
   return (
     <SiteShell>
+      <PageMeta
+        title="Bocconi 101 — Newcomer Guide | BocconiTSA"
+        description="Everything new Turkish students need to know about Bocconi and life in Italy."
+        ogTitle="Bocconi 101 — Newcomer Guide"
+        ogDescription="Codice fiscale, permesso di soggiorno, housing, transport and campus life."
+      />
       <PageHero img={milan} eyebrow="Bocconi 101" title={t({ tr: "Yeni gelenler için rehber", en: "The newcomer's guide" })} sub={t({ tr: "İtalya'ya ve Bocconi'ye ilk adımın için bilmen gerekenler.", en: "What you need for your first steps in Italy and at Bocconi." })} />
       <Bocconi101Tabs />
       <section className="mx-auto max-w-6xl px-5 py-14 grid md:grid-cols-2 gap-6">

@@ -1,25 +1,19 @@
-import { createFileRoute } from "@tanstack/react-router";
 import dorm from "@/assets/dorm.jpg";
+import { PageMeta } from "@/components/PageMeta";
 import { SiteShell, PageHero, Bocconi101Tabs } from "@/components/SiteShell";
 import { dorms } from "@/lib/data";
 import { useLang } from "@/lib/i18n";
 
-export const Route = createFileRoute("/bocconi-101/dorm-tours")({
-  head: () => ({
-    meta: [
-      { title: "Dorm Tours — Bocconi Residences | BocconiTSA" },
-      { name: "description", content: "Room tours of Bocconi residences filmed by the BocconiTSA media team." },
-      { property: "og:title", content: "Bocconi Dorm Tours" },
-      { property: "og:description", content: "See real rooms, prices and walking distances before you apply." },
-    ],
-  }),
-  component: Page,
-});
-
-function Page() {
+export default function Page() {
   const { t } = useLang();
   return (
     <SiteShell>
+      <PageMeta
+        title="Dorm Tours — Bocconi Residences | BocconiTSA"
+        description="Room tours of Bocconi residences filmed by the BocconiTSA media team."
+        ogTitle="Bocconi Dorm Tours"
+        ogDescription="See real rooms, prices and walking distances before you apply."
+      />
       <PageHero eyebrow={t({ tr: "Medya ekibimizden", en: "From our media team" })} title={t({ tr: "Yurt odası turları", en: "Dorm room tours" })} sub={t({ tr: "Başvurmadan önce odaları gerçekten gör.", en: "See the rooms for real before you apply." })} />
       <Bocconi101Tabs />
       <section className="mx-auto max-w-6xl px-5 py-14 grid sm:grid-cols-2 gap-6">

@@ -1,19 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { PageMeta } from "@/components/PageMeta";
 import { SiteShell, PageHero, Section } from "@/components/SiteShell";
 import { social } from "@/lib/data";
 import { useLang } from "@/lib/i18n";
-
-export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title: "Team & Contact — BocconiTSA" },
-      { name: "description", content: "Supporting Turkish students at Bocconi with events, networking, and cultural exchange. Meet our board and get in touch." },
-      { property: "og:title", content: "BocconiTSA — Team & Contact" },
-      { property: "og:description", content: "Our mission, our board and how to get in touch." },
-    ],
-  }),
-  component: Page,
-});
 
 // The four focus areas from our LinkedIn About section
 const pillars = [
@@ -54,10 +42,16 @@ const initials = (n: string) => {
   return `${parts[0]?.[0] ?? ""}${parts.length > 1 ? (parts.at(-1)?.[0] ?? "") : ""}`;
 };
 
-function Page() {
+export default function Page() {
   const { t } = useLang();
   return (
     <SiteShell>
+      <PageMeta
+        title="Team & Contact — BocconiTSA"
+        description="Supporting Turkish students at Bocconi with events, networking, and cultural exchange. Meet our board and get in touch."
+        ogTitle="BocconiTSA — Team & Contact"
+        ogDescription="Our mission, our board and how to get in touch."
+      />
       <PageHero eyebrow="BocconiTSA" title={t({ tr: "Bocconi'deki Türk öğrencilerin evi", en: "The home of Turkish students at Bocconi" })} sub={t({ tr: "BTSA, Bocconi'deki Türk öğrencileri ve Türk kültürüne, iş dünyasına ve topluluk hayatına ilgi duyan herkesi bir araya getiren öğrenci derneğidir.", en: "BTSA brings together Turkish students at Bocconi and everyone interested in Turkish culture, business and community life." })} />
       <Section eyebrow={t({ tr: "Ne yapıyoruz", en: "What we do" })} title={t({ tr: "Dört temel alan", en: "Four pillars" })}>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">

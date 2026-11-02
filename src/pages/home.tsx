@@ -1,5 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
 import hero from "@/assets/hero.jpg";
+import { PageMeta } from "@/components/PageMeta";
 import { SiteShell } from "@/components/SiteShell";
 import { DateBadge } from "@/components/EventList";
 import { EventsView } from "@/components/EventsView";
@@ -8,24 +8,18 @@ import { events, linkLabel, todayKey } from "@/lib/events";
 import { posts } from "@/lib/posts";
 import { useLang } from "@/lib/i18n";
 
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "BocconiTSA — Turkish Students Association at Bocconi" },
-      { name: "description", content: "Events, parties and community for Turkish students at Bocconi University, Milan." },
-      { property: "og:title", content: "BocconiTSA — Turkish Students at Bocconi" },
-      { property: "og:description", content: "Events calendar, recaps and community for Turkish students in Milan." },
-    ],
-  }),
-  component: Index,
-});
-
-function Index() {
+export default function Index() {
   const { t } = useLang();
   const today = todayKey();
   const upcoming = events.filter((e) => e.date >= today).slice(0, 4);
   return (
     <SiteShell>
+      <PageMeta
+        title="BocconiTSA — Turkish Students Association at Bocconi"
+        description="Events, parties and community for Turkish students at Bocconi University, Milan."
+        ogTitle="BocconiTSA — Turkish Students at Bocconi"
+        ogDescription="Events calendar, recaps and community for Turkish students in Milan."
+      />
       <section className="relative text-primary-foreground overflow-hidden">
         <img src={hero} alt="BocconiTSA" width={1600} height={912} className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 hero-overlay" />

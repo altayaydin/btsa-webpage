@@ -1,19 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { PageMeta } from "@/components/PageMeta";
 import { SiteShell, PageHero, Bocconi101Tabs, ChipRow } from "@/components/SiteShell";
 import { useLang } from "@/lib/i18n";
-
-export const Route = createFileRoute("/bocconi-101/notes")({
-  head: () => ({
-    meta: [
-      { title: "Course Notes — BocconiTSA" },
-      { name: "description", content: "Course notes shared by Turkish students at Bocconi, filtered by year and course." },
-      { property: "og:title", content: "Bocconi Course Notes — BocconiTSA" },
-      { property: "og:description", content: "Find and share lecture notes for Bocconi courses." },
-    ],
-  }),
-  component: Page,
-});
 
 // Sample notes
 const notes = [
@@ -27,13 +15,19 @@ const notes = [
   { course: "Business Strategy", year: 3, author: "Selin G.", pages: 24, term: "2024/25" },
 ];
 
-function Page() {
+export default function Page() {
   const { t } = useLang();
   const [year, setYear] = useState<number | 0>(0);
   const [q, setQ] = useState("");
   const list = notes.filter((n) => (!year || n.year === year) && n.course.toLowerCase().includes(q.toLowerCase()));
   return (
     <SiteShell>
+      <PageMeta
+        title="Course Notes — BocconiTSA"
+        description="Course notes shared by Turkish students at Bocconi, filtered by year and course."
+        ogTitle="Bocconi Course Notes — BocconiTSA"
+        ogDescription="Find and share lecture notes for Bocconi courses."
+      />
       <PageHero eyebrow={t({ tr: "Not paylaşımı", en: "Notes sharing" })} title={t({ tr: "Ders notları", en: "Course notes" })} sub={t({ tr: "Birbirimize destek olalım. Notlarını paylaş, başkalarınınkini bul.", en: "Help each other out. Share your notes, find others'." })} />
       <Bocconi101Tabs />
       <section className="mx-auto max-w-6xl px-5 py-10">

@@ -11,13 +11,18 @@ const Ctx = createContext<{ lang: Lang; setLang: (l: Lang) => void; t: (x: T) =>
 
 export function LangProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>("tr");
+  // Storage can throw (blocked cookies, some private modes); the choice just isn't remembered then
   useEffect(() => {
-    const s = localStorage.getItem("btsa-lang");
-    if (s === "en" || s === "tr") setLangState(s);
+    try {
+      const s = localStorage.getItem("btsa-lang");
+      if (s === "en" || s === "tr") setLangState(s);
+    } catch {}
   }, []);
   const setLang = (l: Lang) => {
     setLangState(l);
-    localStorage.setItem("btsa-lang", l);
+    try {
+      localStorage.setItem("btsa-lang", l);
+    } catch {}
     document.documentElement.lang = l;
   };
   return <Ctx.Provider value={{ lang, setLang, t: (x) => x[lang] }}>{children}</Ctx.Provider>;

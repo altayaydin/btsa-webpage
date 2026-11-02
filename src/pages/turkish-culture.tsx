@@ -1,19 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import culture from "@/assets/culture.jpg";
+import { PageMeta } from "@/components/PageMeta";
 import { SiteShell, PageHero, Section } from "@/components/SiteShell";
-
-export const Route = createFileRoute("/turkish-culture")({
-  head: () => ({
-    meta: [
-      { title: "Turkish Culture — Food, Traditions, Words | BocconiTSA" },
-      { name: "description", content: "A fun, visual look at Turkish culture: tea, simit, nazar, coffee fortunes, holidays and words to learn." },
-      { property: "og:title", content: "Discover Turkish Culture — BocconiTSA" },
-      { property: "og:description", content: "Food, traditions, music and Turkish words for our international friends." },
-    ],
-  }),
-  component: Page,
-});
 
 // English-only: written for international visitors
 const foods = [
@@ -37,10 +25,16 @@ const words = [
   { w: "Maşallah", m: "Wonderful! (and protects from nazar)" },
 ];
 
-function Page() {
+export default function Page() {
   const [flip, setFlip] = useState<number | null>(null);
   return (
     <SiteShell only="en">
+      <PageMeta
+        title="Turkish Culture — Food, Traditions, Words | BocconiTSA"
+        description="A fun, visual look at Turkish culture: tea, simit, nazar, coffee fortunes, holidays and words to learn."
+        ogTitle="Discover Turkish Culture — BocconiTSA"
+        ogDescription="Food, traditions, music and Turkish words for our international friends."
+      />
       <PageHero img={culture} eyebrow="Turkish culture" title="Take a closer look at Türkiye" sub="Our traditions, flavours and words for our international friends." />
       <Section eyebrow="Flavours" title="You have to try">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">

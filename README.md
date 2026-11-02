@@ -45,7 +45,7 @@ The "What we've been up to" feed on the home page reads [`src/content/posts.json
 
 ## Development
 
-A Vite + React + TypeScript app with [TanStack Router](https://tanstack.com/router) file-based routing (pages live in `src/routes/`). Needs Node.js 24.
+A Vite + React + TypeScript app. Pages live in `src/pages/` and are wired to URLs in [`src/router.tsx`](src/router.tsx) with [React Router](https://reactrouter.com). Needs Node.js 24.
 
 ```sh
 npm install

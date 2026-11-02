@@ -1,18 +1,20 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import {
-  Outlet,
-  Link,
-  createRootRouteWithContext,
-  useRouter,
-  HeadContent,
-  type ErrorComponentProps,
-} from "@tanstack/react-router";
+import { Link, Outlet, ScrollRestoration, useRouteError } from "react-router";
 
-import { LangProvider } from "../lib/i18n";
+import { LangProvider } from "@/lib/i18n";
 
-function NotFoundComponent() {
+export function RootLayout() {
+  return (
+    <LangProvider>
+      <ScrollRestoration />
+      <Outlet />
+    </LangProvider>
+  );
+}
+
+export function NotFound() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
+      <title>Page not found — BocconiTSA</title>
       <div className="max-w-md text-center">
         <h1 className="text-7xl font-bold text-foreground">404</h1>
         <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
@@ -32,9 +34,9 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: ErrorComponentProps) {
+export function RouteError() {
+  const error = useRouteError();
   console.error(error);
-  const router = useRouter();
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -47,10 +49,7 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
-            onClick={() => {
-              router.invalidate();
-              reset();
-            }}
+            onClick={() => window.location.reload()}
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
             Try again
@@ -64,30 +63,5 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
         </div>
       </div>
     </div>
-  );
-}
-
-export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
-    meta: [
-      { title: "BocconiTSA" },
-      { name: "description", content: "Bocconi Turkish Students Association" },
-    ],
-  }),
-  component: RootComponent,
-  notFoundComponent: NotFoundComponent,
-  errorComponent: ErrorComponent,
-});
-
-function RootComponent() {
-  const { queryClient } = Route.useRouteContext();
-
-  return (
-    <QueryClientProvider client={queryClient}>
-      <HeadContent />
-      <LangProvider>
-        <Outlet />
-      </LangProvider>
-    </QueryClientProvider>
   );
 }

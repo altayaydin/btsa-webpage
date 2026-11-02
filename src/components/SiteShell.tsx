@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, NavLink } from "react-router";
 import { Instagram, Linkedin, Menu, X } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { social } from "@/lib/data";
@@ -28,7 +28,7 @@ const nav = [
   { to: "/about", tr: "Ekip & İletişim", en: "Team & Contact" },
 ] as const;
 
-const linkCls = "opacity-80 hover:opacity-100 data-[status=active]:opacity-100 data-[status=active]:text-gold whitespace-nowrap";
+const linkCls = "opacity-80 hover:opacity-100 aria-[current=page]:opacity-100 aria-[current=page]:text-gold whitespace-nowrap";
 
 // `only` marks a single-language page; visitors in the other language get a notice with a switch
 export function SiteShell({ children, only }: { children: ReactNode; only?: Lang }) {
@@ -47,19 +47,19 @@ export function SiteShell({ children, only }: { children: ReactNode; only?: Lang
             {links.map((n) =>
               n.to === "/bocconi-101" ? (
                 <div key={n.to} className="relative group">
-                  <Link to={n.to} className={linkCls}>{t(n)} ▾</Link>
+                  <NavLink to={n.to} className={linkCls}>{t(n)} ▾</NavLink>
                   <div className="absolute left-0 top-full pt-3 hidden group-hover:block group-focus-within:block">
                     <div className="rounded-lg bg-card text-card-foreground shadow-lg border p-2 min-w-44">
                       {sub101.map((s) => (
-                        <Link key={s.to} to={s.to} activeOptions={{ exact: true }} className="block rounded px-3 py-2 hover:bg-muted data-[status=active]:text-primary data-[status=active]:font-bold">
+                        <NavLink key={s.to} to={s.to} end className="block rounded px-3 py-2 hover:bg-muted aria-[current=page]:text-primary aria-[current=page]:font-bold">
                           {t(s)}
-                        </Link>
+                        </NavLink>
                       ))}
                     </div>
                   </div>
                 </div>
               ) : (
-                <Link key={n.to} to={n.to} activeOptions={{ exact: n.to === "/" }} className={linkCls}>{t(n)}</Link>
+                <NavLink key={n.to} to={n.to} end={n.to === "/"} className={linkCls}>{t(n)}</NavLink>
               ),
             )}
           </nav>
@@ -84,16 +84,16 @@ export function SiteShell({ children, only }: { children: ReactNode; only?: Lang
             <ul className="mx-auto max-w-6xl px-5 py-3">
               {links.map((n) => (
                 <li key={n.to}>
-                  <Link to={n.to} onClick={closeMenu} activeOptions={{ exact: n.to === "/" }} className="block py-3 text-lg data-[status=active]:text-gold">
+                  <NavLink to={n.to} onClick={closeMenu} end={n.to === "/"} className="block py-3 text-lg aria-[current=page]:text-gold">
                     {t(n)}
-                  </Link>
+                  </NavLink>
                   {n.to === "/bocconi-101" && (
                     <ul className="mb-2 ml-1 border-l border-primary-foreground/15 pl-4">
                       {sub101.map((s) => (
                         <li key={s.to}>
-                          <Link to={s.to} onClick={closeMenu} activeOptions={{ exact: true }} className="block py-2 opacity-75 data-[status=active]:opacity-100 data-[status=active]:text-gold">
+                          <NavLink to={s.to} onClick={closeMenu} end className="block py-2 opacity-75 aria-[current=page]:opacity-100 aria-[current=page]:text-gold">
                             {t(s)}
-                          </Link>
+                          </NavLink>
                         </li>
                       ))}
                     </ul>
@@ -195,9 +195,9 @@ export function Bocconi101Tabs() {
     <div className="border-b bg-card sticky top-16 z-20">
       <div className="mx-auto max-w-6xl px-5 flex gap-6 text-sm font-semibold overflow-x-auto">
         {sub101.map((s) => (
-          <Link key={s.to} to={s.to} activeOptions={{ exact: true }} className="py-4 border-b-2 border-transparent text-muted-foreground whitespace-nowrap data-[status=active]:border-gold data-[status=active]:text-primary">
+          <NavLink key={s.to} to={s.to} end className="py-4 border-b-2 border-transparent text-muted-foreground whitespace-nowrap aria-[current=page]:border-gold aria-[current=page]:text-primary">
             {t(s)}
-          </Link>
+          </NavLink>
         ))}
       </div>
     </div>
